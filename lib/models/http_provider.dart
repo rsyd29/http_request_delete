@@ -27,11 +27,15 @@ class HttpProvider with ChangeNotifier {
   }
 
   void deleteData(BuildContext context) async {
-    var hasilResponse = await http.delete(url);
-    if (hasilResponse.statusCode == 204) {
-      _data = {};
-      notifyListeners();
-      handlingStatusCode(context, 'Berhasil Hapus Data');
+    try {
+      var hasilResponse = await http.delete(url);
+      if (hasilResponse.statusCode == 204) {
+        _data = {};
+        notifyListeners();
+        handlingStatusCode(context, 'BERHASIL HAPUS DATA');
+      }
+    } catch (e) {
+      handlingStatusCode(context, 'Data tidak ada, silahkan get data');
     }
   }
 
